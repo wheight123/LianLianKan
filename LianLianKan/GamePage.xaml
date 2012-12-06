@@ -17,6 +17,8 @@
     <Grid x:Name="LayoutRoot" Background="Wheat">
         <Canvas x:Name="gameCanvas">
             <!-- image resource -->
+            <Image Name="point" Canvas.Left="6" Canvas.Top="6" Height="50" Width="50" 
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/path_point.png" Visibility="Collapsed" />
             <Image Name="num1_1" Canvas.Left="6" Canvas.Top="6" Height="50" Width="50" 
                    Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num1_1.png" Visibility="Collapsed" />
             <Image Name="num2_1" Canvas.Left="6" Canvas.Top="56" Height="50" Width="50" 

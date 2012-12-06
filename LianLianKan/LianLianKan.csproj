@@ -126,6 +126,7 @@
     <Resource Include="images\gamePage\number\num7.png" />
     <Resource Include="images\gamePage\number\num8.png" />
     <Resource Include="images\gamePage\number\num9.png" />
+    <Resource Include="images\gamePage\path_point.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup />
