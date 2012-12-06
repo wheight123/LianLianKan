@@ -116,6 +116,16 @@
     <Resource Include="images\gamePage\blocks\num8_2.png" />
     <Resource Include="images\gamePage\blocks\num9_1.png" />
     <Resource Include="images\gamePage\blocks\num9_2.png" />
+    <Resource Include="images\gamePage\number\num0.png" />
+    <Resource Include="images\gamePage\number\num1.png" />
+    <Resource Include="images\gamePage\number\num2.png" />
+    <Resource Include="images\gamePage\number\num3.png" />
+    <Resource Include="images\gamePage\number\num4.png" />
+    <Resource Include="images\gamePage\number\num5.png" />
+    <Resource Include="images\gamePage\number\num6.png" />
+    <Resource Include="images\gamePage\number\num7.png" />
+    <Resource Include="images\gamePage\number\num8.png" />
+    <Resource Include="images\gamePage\number\num9.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup />

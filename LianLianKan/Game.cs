@@ -164,6 +164,12 @@ namespace LianLianKan
             return score;
         }
 
+        // get remain block amount
+        public int getRemainBlockAmount()
+        {
+            return blockAmount - finishBlockAmount;
+        }
+
         // game properties getter and setter functions ending //
         //*******************************************************************//
 

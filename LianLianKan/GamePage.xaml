@@ -35,33 +35,54 @@
                    Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num8_1.png" Visibility="Collapsed" />
             <Image Name="num9_1" Canvas.Left="6" Canvas.Top="406" Height="50" Width="50" 
                    Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num9_1.png" Visibility="Collapsed" />
-            <Image Name="num10_1" Canvas.Left="6" Canvas.Top="456" Height="50" Width="50" 
+            <Image Name="num10_1" Canvas.Left="56" Canvas.Top="456" Height="50" Width="50" 
                    Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num10_1.png" Visibility="Collapsed" />
-            <Image Name="num1_2" Canvas.Left="6" Canvas.Top="6" Height="50" Width="50" 
+            <Image Name="num1_2" Canvas.Left="56" Canvas.Top="6" Height="50" Width="50" 
                    Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num1_2.png" Visibility="Collapsed" />
-            <Image Name="num2_2" Canvas.Left="6" Canvas.Top="56" Height="50" Width="50" 
+            <Image Name="num2_2" Canvas.Left="56" Canvas.Top="56" Height="50" Width="50" 
                    Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num2_2.png" Visibility="Collapsed" />
-            <Image Name="num3_2" Canvas.Left="6" Canvas.Top="106" Height="50" Width="50" 
+            <Image Name="num3_2" Canvas.Left="56" Canvas.Top="106" Height="50" Width="50" 
                    Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num3_2.png" Visibility="Collapsed" />
-            <Image Name="num4_2" Canvas.Left="6" Canvas.Top="156" Height="50" Width="50" 
+            <Image Name="num4_2" Canvas.Left="56" Canvas.Top="156" Height="50" Width="50" 
                    Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num4_2.png" Visibility="Collapsed" />
-            <Image Name="num5_2" Canvas.Left="6" Canvas.Top="206" Height="50" Width="50" 
+            <Image Name="num5_2" Canvas.Left="56" Canvas.Top="206" Height="50" Width="50" 
                    Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num5_2.png" Visibility="Collapsed" />
-            <Image Name="num6_2" Canvas.Left="6" Canvas.Top="256" Height="50" Width="50" 
+            <Image Name="num6_2" Canvas.Left="56" Canvas.Top="256" Height="50" Width="50" 
                    Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num6_2.png" Visibility="Collapsed" />
-            <Image Name="num7_2" Canvas.Left="6" Canvas.Top="306" Height="50" Width="50" 
+            <Image Name="num7_2" Canvas.Left="56" Canvas.Top="306" Height="50" Width="50" 
                    Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num7_2.png" Visibility="Collapsed" />
-            <Image Name="num8_2" Canvas.Left="6" Canvas.Top="356" Height="50" Width="50" 
+            <Image Name="num8_2" Canvas.Left="56" Canvas.Top="356" Height="50" Width="50" 
                    Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num8_2.png" Visibility="Collapsed" />
-            <Image Name="num9_2" Canvas.Left="6" Canvas.Top="406" Height="50" Width="50" 
+            <Image Name="num9_2" Canvas.Left="56" Canvas.Top="406" Height="50" Width="50" 
                    Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num9_2.png" Visibility="Collapsed" />
-            <Image Name="num10_2" Canvas.Left="6" Canvas.Top="456" Height="50" Width="50" 
+            <Image Name="num10_2" Canvas.Left="56" Canvas.Top="456" Height="50" Width="50" 
                    Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num10_2.png" Visibility="Collapsed" />
             <Image Name="bgBlock" Canvas.Left="56" Canvas.Top="506" Height="50" Width="50"
                    Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/bgBlocks/bgBlock.png" Visibility="Collapsed" />
+            <Image Name="Num0" Canvas.Left="106" Canvas.Top="6" Height="30" Width="19"
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/number/num0.png" Visibility="Collapsed" />
+            <Image Name="Num1" Canvas.Left="106" Canvas.Top="36" Height="30" Width="19"
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/number/num1.png" Visibility="Collapsed" />
+            <Image Name="Num2" Canvas.Left="106" Canvas.Top="66" Height="30" Width="19"
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/number/num2.png" Visibility="Collapsed" />
+            <Image Name="Num3" Canvas.Left="106" Canvas.Top="96" Height="30" Width="19"
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/number/num3.png" Visibility="Collapsed" />
+            <Image Name="Num4" Canvas.Left="106" Canvas.Top="126" Height="30" Width="19"
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/number/num4.png" Visibility="Collapsed" />
+            <Image Name="Num5" Canvas.Left="106" Canvas.Top="156" Height="30" Width="19"
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/number/num5.png" Visibility="Collapsed" />
+            <Image Name="Num6" Canvas.Left="106" Canvas.Top="186" Height="30" Width="19"
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/number/num6.png" Visibility="Collapsed" />
+            <Image Name="Num7" Canvas.Left="106" Canvas.Top="216" Height="30" Width="19"
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/number/num7.png" Visibility="Collapsed" />
+            <Image Name="Num8" Canvas.Left="106" Canvas.Top="246" Height="30" Width="19"
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/number/num8.png" Visibility="Collapsed" />
+            <Image Name="Num9" Canvas.Left="106" Canvas.Top="276" Height="30" Width="19"
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/number/num9.png" Visibility="Collapsed" />
             <!-- user controls -->
             <Button Name="btn_refresh" Content="刷新" Canvas.Left="26" Canvas.Top="723" Height="70"  Width="100" Click="btn_refresh_Click" />
-            <Button Name="btnRestart" Content="再来一次" Canvas.Left="298" Canvas.Top="721" Height="72"  Width="160" Click="btnRestart_Click" />
+            <Button Name="btnRestart" Content="再来一次" Canvas.Left="298" Canvas.Top="721" Height="72"  Width="160" Click="btnRestart_Click"/>
+            <Slider Canvas.Left="26" Canvas.Top="25" Height="83" Name="timeSlider" Width="250" />
         </Canvas>
     </Grid>
  

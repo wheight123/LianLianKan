@@ -24,6 +24,7 @@ namespace LianLianKan
 
         private Image[,] gamePanelBackgroudMatrix;
         private Image[,] gamePanelBlockMatrix;
+        private Image[] gameRemainAmountArray;
         private int gamePanelStartPointX;
         private int gamePanelStartPointY;
 
@@ -46,7 +47,10 @@ namespace LianLianKan
             initGamePanelBackground();
             // initialize game panel blocks
             initGamePanelBlocks();
-
+            // initialize game remain block amount
+            initGameRemainBlockAmount();
+            // initialize game remain time
+            initGameRemainTime();
             // initialize game page auxiliary properties
             initGamePageAuxiliaryProperties();
         }
@@ -111,6 +115,33 @@ namespace LianLianKan
             }
         }
 
+        // initialize game remain block amount
+        private void initGameRemainBlockAmount()
+        {
+            gameRemainAmountArray = new Image[3];
+            int y = gamePanelStartPointY - 40;
+            int x = gamePanelStartPointX + BLOCK_WIDTH * (COLUM_AMOUNT - 2);
+            for (int i = 0; i < 3; i++)
+            {
+                Image image = new Image();
+                image.Name = "number_" + i;
+                int tempX = x + i * (19 + 4);
+                Thickness imageThickness = new Thickness(tempX, y, 0, 0);
+                image.Margin = imageThickness;
+                image.Source = Num0.Source;
+                gameRemainAmountArray[i] = image;
+                gameCanvas.Children.Add(image);
+            }
+            // update game remain block amount
+            updateGameRemainBlockAmount();
+        }
+
+        // initialize game remain time
+        private void initGameRemainTime()
+        {
+
+        }
+
         // initialize game page auxiliary properties
         private void initGamePageAuxiliaryProperties()
         {
@@ -157,15 +188,8 @@ namespace LianLianKan
                         doPathNotFoundUpdate();
                     }
                 }
-                
+                // check game status
             }
-            //else // clear tapped image before finishing find path function
-            //{
-            //    updateImageToNormal(firstPoint);
-            //    updateImageToNormal(secondPoint);
-            //    firstPoint = new Point(-1, -1);
-            //    secondPoint = new Point(-1, -1);
-            //}
         }
         // do path found update
         private void doPathFoundUpdate(Point startPoint, Point endPoint, List<Point> pointList)
@@ -175,6 +199,7 @@ namespace LianLianKan
             removeGamePanelBlockImage(endPoint);
             firstPoint = new Point(-1, -1);
             secondPoint = new Point(-1, -1);
+            updateGameRemainBlockAmount();
         }
         // do path not found update
         private void doPathNotFoundUpdate()
@@ -214,13 +239,27 @@ namespace LianLianKan
             gamePanelBlockMatrix[x, y] = image;
             gameCanvas.Children.Add(image);
         }
+        private void updateGameRemainBlockAmount()
+        {
+            int remainAmount = game.getRemainBlockAmount();
+            for (int i = 2; i >= 0; i--)
+            {
+                int value = remainAmount % 10;
+                remainAmount = remainAmount / 10;
+                Image image = gameRemainAmountArray[i];
+                gameCanvas.Children.Remove(image);
+                setGameNumberImageSource(image, value);
+                gameRemainAmountArray[i] = image;
+                gameCanvas.Children.Add(image);
+            }
+        }
 
         // game main logic functions ending //
         //*******************************************************************//
 
         //*******************************************************************//
         // internal auxiliary functions beginning //
-        
+
         // set game panle block image source normally
         private void setGamePanelBlockImageSourceNormal(Image image, int type)
         {
@@ -296,6 +335,44 @@ namespace LianLianKan
             }
         }
 
+        // set game number image scource
+        private void setGameNumberImageSource(Image image, int value)
+        {
+            switch (value)
+            {
+                case 1:
+                    image.Source = Num1.Source;
+                    break;
+                case 2:
+                    image.Source = Num2.Source;
+                    break;
+                case 3:
+                    image.Source = Num3.Source;
+                    break;
+                case 4:
+                    image.Source = Num4.Source;
+                    break;
+                case 5:
+                    image.Source = Num5.Source;
+                    break;
+                case 6:
+                    image.Source = Num6.Source;
+                    break;
+                case 7:
+                    image.Source = Num7.Source;
+                    break;
+                case 8:
+                    image.Source = Num8.Source;
+                    break;
+                case 9:
+                    image.Source = Num9.Source;
+                    break;
+                case 0:
+                    image.Source = Num0.Source;
+                    break;
+            }
+        }
+
         // check whether is point is empty
         private Boolean isEmptyPoint(Point point)
         {
@@ -324,10 +401,27 @@ namespace LianLianKan
             }
         }
 
-        // update game panel block
+        // internal auxiliary functions ending //
+        //*******************************************************************//
+
+
+        //*******************************************************************//
+
+        private void btn_refresh_Click(object sender, RoutedEventArgs e)
+        {
+            game.refreshGameZoneMatrix();
+            updateGamePanelBlocks();
+        }
+
+        private void btnRestart_Click(object sender, RoutedEventArgs e)
+        {
+            game.doGameInfoReset();
+            updateGamePanelBlocks();
+        }
+
+        // update game panel blocks
         private void updateGamePanelBlocks()
         {
- 
             int[,] gameZoneMatrix = game.getGameZoneMatrix();
             for (int i = 0; i < ROW_AMOUNT; i++)
             {
@@ -359,21 +453,6 @@ namespace LianLianKan
             }
         }
 
-        // internal auxiliary functions ending //
-        //*******************************************************************//
-
-        //*******************************************************************//
-        private void btn_refresh_Click(object sender, RoutedEventArgs e)
-        {
-            game.refreshGameZoneMatrix();
-            updateGamePanelBlocks();
-        }
-
-        private void btnRestart_Click(object sender, RoutedEventArgs e)
-        {
-            game.doGameInfoReset();
-            updateGamePanelBlocks();
-        }
         //*******************************************************************//
     }
 }
