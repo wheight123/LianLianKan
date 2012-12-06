@@ -15,7 +15,7 @@ namespace LianLianKan
 {
     public partial class GamePage : PhoneApplicationPage
     {
-
+        private Game game;
         private const int BLOCK_WIDTH = 50;
         private const int BLOCK_HEIGHT = 50;
         private const int COLUM_AMOUNT = 10;
@@ -30,7 +30,8 @@ namespace LianLianKan
         public GamePage()
         {
             InitializeComponent();
-
+            // initialize game
+            game = new Game(ROW_AMOUNT, COLUM_AMOUNT, BLOCK_TYPE);
             // initialize game panel start point
             initGamePanelStartPoint();
             // initialize game panel background
@@ -75,8 +76,9 @@ namespace LianLianKan
         // initialize game panel block
         private void initGamePanelBlocks()
         {
-            Random random = new Random();
+            //Random random = new Random();
             gamePanelBlockMatrix = new Image[ROW_AMOUNT, COLUM_AMOUNT];
+            int[,] gameZoneMatrix = game.getGameZoneMatrix();
             for (int i = 0; i < ROW_AMOUNT; i++)
             {
                 int y = gamePanelStartPointY + i * BLOCK_HEIGHT;
@@ -87,7 +89,7 @@ namespace LianLianKan
                     image.Name = "blockImage_" + i + "_" + j;
                     Thickness imageThickness = new Thickness(x, y, 0, 0);
                     image.Margin = imageThickness;
-                    int type = random.Next() % BLOCK_TYPE + 1;
+                    int type = gameZoneMatrix[i, j];
                     setGamePanelBlockImageSourceNormal(image, type);
                     image.Tap +=new EventHandler<GestureEventArgs>(blockTapped);
                     gameCanvas.Children.Add(image);
@@ -109,7 +111,8 @@ namespace LianLianKan
             int x = Int32.Parse(array[1]);
             int y = Int32.Parse(array[2]);
             gameCanvas.Children.Remove(image);
-            setGamePanelBlockImageSourceTapped(image, randomType());
+            int type = game.getGameZoneMatrix()[x ,y];
+            setGamePanelBlockImageSourceTapped(image, type);
             gameCanvas.Children.Add(image);
         }
         private int randomType()
