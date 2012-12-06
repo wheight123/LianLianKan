@@ -247,9 +247,225 @@ namespace LianLianKan
         // find path by the third method
         private List<Point> findPath(Point startPoint, Point endPoint)
         {
-            List<Point> pointPathList = new List<Point>();
-            return pointPathList;
+            List<Point> pointPathList1 = new List<Point>();
+            List<Point> pointPathList2 = new List<Point>();
+            Point[] startXPointArray = getXPointArrayOfPoint(startPoint);
+            Point[] startYPointArray = getYPointArrayOfPoint(startPoint);
+            Point[] endXPointArray = getXPointArrayOfPoint(endPoint);
+            Point[] endYPointArray = getYPointArrayOfPoint(endPoint);
+            int distance1 = getPointPairDistanceInXAxis(
+                startXPointArray, endXPointArray, startPoint, endPoint, pointPathList1);
+            int distance2 = getPointPairDistanceInYAxis(
+                startYPointArray, endYPointArray, startPoint, endPoint, pointPathList2);
+            if (pointPathList1.Count > 0 && pointPathList2.Count > 0)
+            {
+                if (distance1 <= distance2)
+                {
+                    return pointPathList1;
+                }
+                else
+                {
+                    return pointPathList2;
+                }
+            }
+            else if (pointPathList1.Count > 0 && pointPathList2.Count == 0)
+            {
+                return pointPathList1;
+            }
+            else if (pointPathList1.Count == 0 && pointPathList2.Count > 0)
+            {
+                return pointPathList2;
+            }
+            else
+            {
+                return new List<Point>();
+            }
         }
+        // get x axis point array of point
+        private Point[] getXPointArrayOfPoint(Point point)
+        {
+            int x = (int)point.X;
+            int y = (int)point.Y;
+            Point[] xPointArray = new Point[rowAmount];
+            xPointArray[x] = generateEmptyPoint();
+            int i;
+            Boolean flag = false;
+            for (i = x -1; i >= 0; i--)
+            {
+                if (flag)
+                {
+                    xPointArray[i] = generateEmptyPoint();
+                }
+                else
+                {
+                    if (gameZoneMatrix[i, y] != 0)
+                    {
+                        flag = true;
+                        xPointArray[i] = generateEmptyPoint();
+                    }
+                    else
+                    {
+                        xPointArray[i] = new Point(i, y);
+                    }
+                }
+                
+            }
+            flag = false;
+            for (i = x + 1; i < rowAmount; i++)
+            {
+                if (flag)
+                {
+                    xPointArray[i] = generateEmptyPoint();
+                }
+                else
+                {
+                    if (gameZoneMatrix[i, y] != 0)
+                    {
+                        flag = true;
+                        xPointArray[i] = generateEmptyPoint();
+                    }
+                    else
+                    {
+                        xPointArray[i] = new Point(i, y);
+                    }
+                }
+            }
+            return xPointArray;
+        }
+        // get y axis piont array of point
+        private Point[] getYPointArrayOfPoint(Point point)
+        {
+            int x = (int)point.X;
+            int y = (int)point.Y;
+            Point[] yPointArray = new Point[columAmount];
+            yPointArray[y] = generateEmptyPoint();
+            int i;
+            Boolean flag = false;
+            for (i = y - 1; i >= 0; i--)
+            {
+                if (flag)
+                {
+                    yPointArray[i] = generateEmptyPoint();
+                }
+                else
+                {
+                    if (gameZoneMatrix[x, i] != 0)
+                    {
+                        flag = true;
+                        yPointArray[i] = generateEmptyPoint();
+                    }
+                    else
+                    {
+                        yPointArray[i] = new Point(x, i);
+                    }
+                }
+
+            }
+            flag = false;
+            for (i = y + 1; i < columAmount; i++)
+            {
+                if (flag)
+                {
+                    yPointArray[i] = generateEmptyPoint();
+                }
+                else
+                {
+                    if (gameZoneMatrix[x, i] != 0)
+                    {
+                        flag = true;
+                        yPointArray[i] = generateEmptyPoint();
+                    }
+                    else
+                    {
+                        yPointArray[i] = new Point(x, i);
+                    }
+                }
+            }
+            return yPointArray;
+        }
+        private int getPointPairDistanceInXAxis(Point[] startPointArray, Point[] endPointArray,
+            Point startPoint, Point endPoint, List<Point> pointPathList)
+        {
+            int x1 = (int)startPoint.X;
+            int x2 = (int)endPoint.X;
+            int minDistance = 10000;
+            Point minPoint1 = new Point();
+            Point minPoint2 = new Point();
+            Boolean flag = false;
+            for (int i = 0; i < rowAmount; i++)
+            {
+                Point point1 = startPointArray[i];
+                Point point2 = endPointArray[i];
+                if ((!isEmptyPoint(point1)) && (!isEmptyPoint(point2)))
+                {
+                    if (canTwoPointsBeConnected(point1, point2))
+                    {
+                        flag = true;
+                        int tempDistance = Math.Abs(i - x1) + Math.Abs(i - x2);
+                        if (minDistance > tempDistance)
+                        {
+                            minDistance = tempDistance;
+                            minPoint1 = point1;
+                            minPoint2 = point2;
+                        }
+                    }
+                }
+            }
+            if (flag)
+            {
+                pointPathList.Add(startPoint);
+                pointPathList.Add(minPoint1);
+                pointPathList.Add(minPoint2);
+                pointPathList.Add(endPoint);
+                return minDistance;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+        private int getPointPairDistanceInYAxis(Point[] startPointArray, Point[] endPointArray,
+            Point startPoint, Point endPoint, List<Point> pointPathList)
+        {
+            int y1 = (int)startPoint.Y;
+            int y2 = (int)endPoint.Y;
+            int minDistance = 10000;
+            Point minPoint1 = new Point();
+            Point minPoint2 = new Point();
+            Boolean flag = false;
+            for (int i = 0; i < columAmount; i++)
+            {
+                Point point1 = startPointArray[i];
+                Point point2 = endPointArray[i];
+                if ((!isEmptyPoint(point1)) && (!isEmptyPoint(point2)))
+                {
+                    if (canTwoPointsBeConnected(point1, point2))
+                    {
+                        flag = true;
+                        int tempDistance = Math.Abs(i - y1) + Math.Abs(i - y2);
+                        if (minDistance > tempDistance)
+                        {
+                            minDistance = tempDistance;
+                            minPoint1 = point1;
+                            minPoint2 = point2;
+                        }
+                    }
+                }
+            }
+            if (flag)
+            {
+                pointPathList.Add(startPoint);
+                pointPathList.Add(minPoint1);
+                pointPathList.Add(minPoint2);
+                pointPathList.Add(endPoint);
+                return minDistance;
+            }
+            else
+            {
+                return -1;
+            }
+        }
+
         // check whether three point can be connected
         private Boolean canThreePointsBeConnected(Point startPoint, Point endPoint, Point tempPoint)
         {
@@ -349,6 +565,25 @@ namespace LianLianKan
             double x2 = point2.X;
             double y2 = point2.Y;
             if (x1 == x2 || y1 == y2)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        // generate empty point
+        private Point generateEmptyPoint()
+        {
+            Point point = new Point(-1, -1);
+            return point;
+        }
+        // check whether point is empty point
+        private Boolean isEmptyPoint(Point point)
+        {
+            if (point.X == -1 && point.Y == -1)
             {
                 return true;
             }
