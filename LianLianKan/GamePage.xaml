@@ -16,6 +16,7 @@
     <!--LayoutRoot 是包含所有页面内容的根网格-->
     <Grid x:Name="LayoutRoot" Background="Wheat">
         <Canvas x:Name="gameCanvas">
+            <!-- image resource -->
             <Image Name="num1_1" Canvas.Left="6" Canvas.Top="6" Height="50" Width="50" 
                    Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num1_1.png" Visibility="Collapsed" />
             <Image Name="num2_1" Canvas.Left="6" Canvas.Top="56" Height="50" Width="50" 
@@ -58,6 +59,9 @@
                    Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num10_2.png" Visibility="Collapsed" />
             <Image Name="bgBlock" Canvas.Left="56" Canvas.Top="506" Height="50" Width="50"
                    Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/bgBlocks/bgBlock.png" Visibility="Collapsed" />
+            <!-- user controls -->
+            <Button Name="btn_refresh" Content="刷新" Canvas.Left="26" Canvas.Top="723" Height="70"  Width="100" Click="btn_refresh_Click" />
+            
         </Canvas>
     </Grid>
  

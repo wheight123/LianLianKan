@@ -84,7 +84,7 @@ namespace LianLianKan
                 }
             }
         }
-        // random arrange value pari in game zone matrix
+        // random arrange value pair in game zone matrix
         private void randomArrangeValuePairInGameZoneMatrix()
         {
             Random random = new Random();
@@ -164,6 +164,15 @@ namespace LianLianKan
         }
 
         // game properties getter and setter functions ending //
+        //*******************************************************************//
+
+        //*******************************************************************//
+        // game business service functions beginning //
+        public void refreshGameZoneMatrix()
+        {
+            randomExchangeValuePointInGameZoneMatrix();
+        }
+        // game business service functions ending //
         //*******************************************************************//
 
     }
