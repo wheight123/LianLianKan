@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using System.Windows.Threading;
 
 namespace LianLianKan
 {
@@ -27,6 +28,8 @@ namespace LianLianKan
         private Image[] gameRemainAmountArray;
         private int gamePanelStartPointX;
         private int gamePanelStartPointY;
+
+        private DispatcherTimer timeSliderTimer;
 
         // game page auxiliary properties
         private Point firstPoint;
@@ -139,7 +142,17 @@ namespace LianLianKan
         // initialize game remain time
         private void initGameRemainTime()
         {
+            int x = gamePanelStartPointX + 5;
+            int y = gamePanelStartPointY - 75;
+            Thickness thickness = new Thickness(x, y, 0, 0);
+            timeSlider.Margin = thickness;
+            timeSlider.Maximum = game.getRemainTime();
+            timeSlider.Value = game.getRemainTime();
 
+            timeSliderTimer = new DispatcherTimer();
+            timeSliderTimer.Interval = TimeSpan.FromSeconds(1);
+            timeSliderTimer.Tick += timeSliderTimer_Tick;
+            timeSliderTimer.Start();
         }
 
         // initialize game page auxiliary properties
@@ -151,6 +164,7 @@ namespace LianLianKan
 
         // game page initialize functions ending //
         //*******************************************************************//
+
 
         //*******************************************************************//
         // game main logic functions beginning //
@@ -189,6 +203,7 @@ namespace LianLianKan
                     }
                 }
                 // check game status
+                checkGameStatus();
             }
         }
         // do path found update
@@ -251,6 +266,41 @@ namespace LianLianKan
                 setGameNumberImageSource(image, value);
                 gameRemainAmountArray[i] = image;
                 gameCanvas.Children.Add(image);
+            }
+        }
+
+        // timeSlider timer tick callback function
+        private void timeSliderTimer_Tick(object sender, object e)
+        {
+            // decrease game remain time normally
+            game.decreaseRemainTime();
+            // update game time
+            updateGameTime();
+            // check game status
+            checkGameStatus();
+        }
+
+        private void updateGameTime()
+        {
+            timeSlider.Value = game.getRemainTime();
+        }
+
+        private void checkGameStatus()
+        {
+            if (game.isGameOver())
+            {
+                timeSliderTimer.Stop();
+                btn_refresh.Visibility = System.Windows.Visibility.Collapsed;
+                btn_restart.Visibility = System.Windows.Visibility.Visible;
+                tbRemind.Visibility = System.Windows.Visibility.Visible;
+                if (game.isWin())
+                {
+                    tbRemind.Text = "胜利！";
+                }
+                if (game.isLost())
+                {
+                    tbRemind.Text = "失败！";
+                }
             }
         }
 
@@ -417,6 +467,21 @@ namespace LianLianKan
         {
             game.doGameInfoReset();
             updateGamePanelBlocks();
+            updateGameRemainBlockAmount();
+            resetTimeSliderTimer();
+            btn_refresh.Visibility = System.Windows.Visibility.Visible;
+            btn_restart.Visibility = System.Windows.Visibility.Collapsed;
+            tbRemind.Visibility = System.Windows.Visibility.Collapsed;
+        }
+
+        private void resetTimeSliderTimer()
+        {
+            timeSliderTimer = new DispatcherTimer();
+            timeSliderTimer.Interval = TimeSpan.FromSeconds(1);
+            timeSliderTimer.Tick += timeSliderTimer_Tick;
+            timeSliderTimer.Start();
+
+            updateGameTime();
         }
 
         // update game panel blocks

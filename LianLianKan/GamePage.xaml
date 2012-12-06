@@ -81,8 +81,11 @@
                    Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/number/num9.png" Visibility="Collapsed" />
             <!-- user controls -->
             <Button Name="btn_refresh" Content="刷新" Canvas.Left="26" Canvas.Top="723" Height="70"  Width="100" Click="btn_refresh_Click" />
-            <Button Name="btnRestart" Content="再来一次" Canvas.Left="298" Canvas.Top="721" Height="72"  Width="160" Click="btnRestart_Click"/>
-            <Slider Canvas.Left="26" Canvas.Top="25" Height="83" Name="timeSlider" Width="250" />
+            <Button Name="btn_restart" Content="再来一次" Canvas.Left="298" Canvas.Top="721" Height="72"  Width="160" 
+                    Click="btnRestart_Click" Visibility="Collapsed"/>
+            <Slider Canvas.Left="26" Canvas.Top="25" Height="83" Name="timeSlider" Width="250" Foreground="#FFEFAD1C"/>
+            <TextBlock Canvas.Left="40" Canvas.Top="733" Height="48" Name="tbRemind" Width="235" FontSize="32" 
+                       Visibility="Collapsed" Foreground="#FFF51919" Text="aaaa"/>
         </Canvas>
     </Grid>
  

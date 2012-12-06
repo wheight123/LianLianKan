@@ -554,7 +554,7 @@ namespace LianLianKan
         }
 
         // decrease remain time
-        public void decreaseReaminTime()
+        public void decreaseRemainTime()
         {
             remainTime -= 1;
         }
@@ -582,6 +582,41 @@ namespace LianLianKan
             clearGameZoneMatrix();
             randomArrangeValuePairInGameZoneMatrix();
             randomExchangeValuePointInGameZoneMatrix();
+            initUserGameInfo();
+        }
+
+        public Boolean isGameOver()
+        {
+            if (remainTime <= 0 || finishBlockAmount >= blockAmount)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public Boolean isWin()
+        {
+            if (finishBlockAmount >= blockAmount)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        public Boolean isLost()
+        {
+            if (remainTime <= 0)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
         // game business service functions ending //
         //*******************************************************************//
