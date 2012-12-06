@@ -1,0 +1,76 @@
+﻿<phone:PhoneApplicationPage 
+    x:Class="LianLianKan.GamePage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    FontFamily="{StaticResource PhoneFontFamilyNormal}"
+    FontSize="{StaticResource PhoneFontSizeNormal}"
+    Foreground="{StaticResource PhoneForegroundBrush}"
+    SupportedOrientations="Portrait" Orientation="Portrait"
+    mc:Ignorable="d" d:DesignHeight="800" d:DesignWidth="480"
+    shell:SystemTray.IsVisible="False">
+
+    <!--LayoutRoot 是包含所有页面内容的根网格-->
+    <Grid x:Name="LayoutRoot" Background="Wheat">
+        <Canvas x:Name="gameCanvas">
+            <Image Name="num1_1" Canvas.Left="6" Canvas.Top="6" Height="50" Width="50" 
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num1_1.png" Visibility="Collapsed" />
+            <Image Name="num2_1" Canvas.Left="6" Canvas.Top="56" Height="50" Width="50" 
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num2_1.png" Visibility="Collapsed" />
+            <Image Name="num3_1" Canvas.Left="6" Canvas.Top="106" Height="50" Width="50" 
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num3_1.png" Visibility="Collapsed" />
+            <Image Name="num4_1" Canvas.Left="6" Canvas.Top="156" Height="50" Width="50" 
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num4_1.png" Visibility="Collapsed" />
+            <Image Name="num5_1" Canvas.Left="6" Canvas.Top="206" Height="50" Width="50" 
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num5_1.png" Visibility="Collapsed" />
+            <Image Name="num6_1" Canvas.Left="6" Canvas.Top="256" Height="50" Width="50" 
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num6_1.png" Visibility="Collapsed" />
+            <Image Name="num7_1" Canvas.Left="6" Canvas.Top="306" Height="50" Width="50" 
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num7_1.png" Visibility="Collapsed" />
+            <Image Name="num8_1" Canvas.Left="6" Canvas.Top="356" Height="50" Width="50" 
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num8_1.png" Visibility="Collapsed" />
+            <Image Name="num9_1" Canvas.Left="6" Canvas.Top="406" Height="50" Width="50" 
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num9_1.png" Visibility="Collapsed" />
+            <Image Name="num10_1" Canvas.Left="6" Canvas.Top="456" Height="50" Width="50" 
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num10_1.png" Visibility="Collapsed" />
+            <Image Name="num1_2" Canvas.Left="6" Canvas.Top="6" Height="50" Width="50" 
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num1_2.png" Visibility="Collapsed" />
+            <Image Name="num2_2" Canvas.Left="6" Canvas.Top="56" Height="50" Width="50" 
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num2_2.png" Visibility="Collapsed" />
+            <Image Name="num3_2" Canvas.Left="6" Canvas.Top="106" Height="50" Width="50" 
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num3_2.png" Visibility="Collapsed" />
+            <Image Name="num4_2" Canvas.Left="6" Canvas.Top="156" Height="50" Width="50" 
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num4_2.png" Visibility="Collapsed" />
+            <Image Name="num5_2" Canvas.Left="6" Canvas.Top="206" Height="50" Width="50" 
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num5_2.png" Visibility="Collapsed" />
+            <Image Name="num6_2" Canvas.Left="6" Canvas.Top="256" Height="50" Width="50" 
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num6_2.png" Visibility="Collapsed" />
+            <Image Name="num7_2" Canvas.Left="6" Canvas.Top="306" Height="50" Width="50" 
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num7_2.png" Visibility="Collapsed" />
+            <Image Name="num8_2" Canvas.Left="6" Canvas.Top="356" Height="50" Width="50" 
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num8_2.png" Visibility="Collapsed" />
+            <Image Name="num9_2" Canvas.Left="6" Canvas.Top="406" Height="50" Width="50" 
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num9_2.png" Visibility="Collapsed" />
+            <Image Name="num10_2" Canvas.Left="6" Canvas.Top="456" Height="50" Width="50" 
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/blocks/num10_2.png" Visibility="Collapsed" />
+            <Image Name="bgBlock" Canvas.Left="56" Canvas.Top="506" Height="50" Width="50"
+                   Stretch="Uniform" Source="/LianLianKan;component/images/gamePage/bgBlocks/bgBlock.png" Visibility="Collapsed" />
+        </Canvas>
+    </Grid>
+ 
+    <!--演示 ApplicationBar 用法的示例代码-->
+    <!--<phone:PhoneApplicationPage.ApplicationBar>
+        <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="按钮 1"/>
+            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button2.png" Text="按钮 2"/>
+            <shell:ApplicationBar.MenuItems>
+                <shell:ApplicationBarMenuItem Text="菜单项 1"/>
+                <shell:ApplicationBarMenuItem Text="菜单项 2"/>
+            </shell:ApplicationBar.MenuItems>
+        </shell:ApplicationBar>
+    </phone:PhoneApplicationPage.ApplicationBar>-->
+
+</phone:PhoneApplicationPage>
