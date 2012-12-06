@@ -31,6 +31,10 @@ namespace LianLianKan
         private Point firstPoint;
         private Point secondPoint;
 
+        private Point foundPoint1;
+        private Point foundPoint2;
+        private Point resultPointList;
+
         public GamePage()
         {
             InitializeComponent();
@@ -137,14 +141,24 @@ namespace LianLianKan
             {
                 secondPoint = new Point(x, y);
                 updateImageToTapped(image, secondPoint);
-            }
-            else
-            {
+                List<Point> pointList = game.findPathBetweenPoints(firstPoint, secondPoint);
+                textBox1.Text = "";
+                foreach (Point point in pointList)
+                {
+                    textBox1.Text +="(" + point.X + "," + point.Y + "); ";
+                }
                 updateImageToNormal(firstPoint);
                 updateImageToNormal(secondPoint);
                 firstPoint = new Point(-1, -1);
                 secondPoint = new Point(-1, -1);
             }
+            //else // clear tapped image before finishing find path function
+            //{
+            //    updateImageToNormal(firstPoint);
+            //    updateImageToNormal(secondPoint);
+            //    firstPoint = new Point(-1, -1);
+            //    secondPoint = new Point(-1, -1);
+            //}
         }
         private void updateImageToTapped(Image image, Point point)
         {

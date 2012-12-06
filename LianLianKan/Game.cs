@@ -8,6 +8,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
+using System.Collections.Generic;
 
 namespace LianLianKan
 {
@@ -168,11 +169,195 @@ namespace LianLianKan
 
         //*******************************************************************//
         // game business service functions beginning //
+
+        // find path between two points
+        public List<Point> findPathBetweenPoints(Point startPoint, Point endPoint)
+        {
+            List<Point> pointPathList = new List<Point>();
+            // check whether the two points own the same value
+            if (isTwoPointsOwnTheSameValue(startPoint, endPoint))
+            {
+                // find point path in line
+                pointPathList = findPathInLine(startPoint, endPoint);
+                if (pointPathList.Count == 0)
+                {
+                    // find point path in rectangle
+                    pointPathList = findPathInRectangle(startPoint, endPoint);
+                    if (pointPathList.Count == 0)
+                    {
+                        // find point path
+                        pointPathList = findPath(startPoint, endPoint);
+                    }
+                }
+            }
+            return pointPathList;
+        }
+        // check whether the two points own the same value
+        private Boolean isTwoPointsOwnTheSameValue(Point point1, Point point2)
+        {
+            int x1 = (int)point1.X;
+            int y1 = (int)point1.Y;
+            int x2 = (int)point2.X;
+            int y2 = (int)point2.Y;
+            Boolean flag = false;
+            if (gameZoneMatrix[x1, y1] == gameZoneMatrix[x2, y2])
+            {
+                flag = true;
+            }
+            return flag;
+        }
+        // find path in line
+        private List<Point> findPathInLine(Point startPoint, Point endPoint)
+        {
+            List<Point> pointPathList = new List<Point>();
+            if (isTwoPointsInLine(startPoint, endPoint))
+            {
+                if (canTwoPointsBeConnected(startPoint, endPoint))
+                {
+                    pointPathList.Add(startPoint);
+                    pointPathList.Add(endPoint);
+                }
+            }
+            return pointPathList;
+        }
+        // find path in rectangle
+        private List<Point> findPathInRectangle(Point startPoint, Point endPoint)
+        {
+            List<Point> pointPathList = new List<Point>();
+            int x1 = (int)startPoint.X;
+            int y1 = (int)startPoint.Y;
+            int x2 = (int)endPoint.X;
+            int y2 = (int)endPoint.Y;
+            Point tempPoint1 = new Point(x1, y2);
+            Point tempPoint2 = new Point(x2, y1);
+            if(canThreePointsBeConnected(startPoint, endPoint, tempPoint1))
+            {
+                pointPathList.Add(startPoint);
+                pointPathList.Add(tempPoint1);
+                pointPathList.Add(endPoint);
+            }
+            else if(canThreePointsBeConnected(startPoint, endPoint, tempPoint2))
+            {
+                pointPathList.Add(startPoint);
+                pointPathList.Add(tempPoint2);
+                pointPathList.Add(endPoint);
+            }
+            return pointPathList;
+        }
+        // find path by the third method
+        private List<Point> findPath(Point startPoint, Point endPoint)
+        {
+            List<Point> pointPathList = new List<Point>();
+            return pointPathList;
+        }
+        // check whether three point can be connected
+        private Boolean canThreePointsBeConnected(Point startPoint, Point endPoint, Point tempPoint)
+        {
+            int x = (int)tempPoint.X;
+            int y = (int)tempPoint.Y;
+            Boolean flag = false;
+            if (gameZoneMatrix[x, y] == 0)
+            {
+                if (canTwoPointsBeConnected(startPoint, tempPoint) &&
+                    canTwoPointsBeConnected(tempPoint, endPoint))
+                {
+                    flag = true;
+                }
+            }
+            return flag;
+        }
+        // check whether two point can be connected
+        private Boolean canTwoPointsBeConnected(Point point1, Point point2)
+        {
+            int x1 = (int)point1.X;
+            int y1 = (int)point1.Y;
+            int x2 = (int)point2.X;
+            int y2 = (int)point2.Y;
+            Boolean flag = true;
+            if (x1 == x2)
+            {
+                int x = x1;
+                int startY;
+                int endY;
+                if (y1 > y2)
+                {
+                    startY = y2 + 1;
+                    endY = y1;
+                }
+                else
+                {
+                    startY = y1 + 1;
+                    endY = y2;
+                }
+                for (int i = startY; i < endY; i++)
+                {
+                    if (gameZoneMatrix[x, i] != 0)
+                    {
+                        flag = false;
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                int y = y1;
+                int startX;
+                int endX;
+                if (x1 > x2)
+                {
+                    startX = x2 + 1;
+                    endX = x1;
+                }
+                else
+                {
+                    startX = x1 + 1;
+                    endX = x2;
+                }
+                for (int i = startX; i < endX; i++)
+                {
+                    if (gameZoneMatrix[i, y] != 0)
+                    {
+                        flag = false;
+                        break;
+                    }
+                }
+            }
+            return flag;
+        }
+
+        // refresh game zone matrix
         public void refreshGameZoneMatrix()
         {
             randomExchangeValuePointInGameZoneMatrix();
         }
+
+        // decrease remain time
+        public void decreaseReaminTime()
+        {
+            remainTime -= 1;
+        }
         // game business service functions ending //
+        //*******************************************************************//
+
+
+        //*******************************************************************//
+        // internal auxiliary functions beginning //
+        private Boolean isTwoPointsInLine(Point point1, Point point2)
+        {
+            double x1 = point1.X;
+            double y1 = point1.Y;
+            double x2 = point2.X;
+            double y2 = point2.Y;
+            if (x1 == x2 || y1 == y2)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        // internal auxiliary functions ending //
         //*******************************************************************//
 
     }
