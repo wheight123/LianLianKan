@@ -35,6 +35,7 @@ namespace LianLianKan
         private Point firstPoint;
         private Point secondPoint;
 
+        private DispatcherTimer showPathTimer;
         private Point foundPoint1;
         private Point foundPoint2;
         private Point resultPointList;
@@ -158,8 +159,8 @@ namespace LianLianKan
         // initialize game page auxiliary properties
         private void initGamePageAuxiliaryProperties()
         {
-            firstPoint = new Point(-1, -1);
-            secondPoint = new Point(-1, -1);
+            firstPoint = generateEmptyPoint();
+            secondPoint = generateEmptyPoint();
         }
 
         // game page initialize functions ending //
@@ -212,8 +213,7 @@ namespace LianLianKan
             game.doFinishBlockPairUpdate(startPoint, endPoint);
             removeGamePanelBlockImage(startPoint);
             removeGamePanelBlockImage(endPoint);
-            firstPoint = new Point(-1, -1);
-            secondPoint = new Point(-1, -1);
+            clearTappedTwoPoint();
             updateGameRemainBlockAmount();
         }
         // do path not found update
@@ -221,9 +221,9 @@ namespace LianLianKan
         {
             updateImageToNormal(firstPoint);
             updateImageToNormal(secondPoint);
-            firstPoint = new Point(-1, -1);
-            secondPoint = new Point(-1, -1);
+            clearTappedTwoPoint();
         }
+        // remote game panel block image
         private void removeGamePanelBlockImage(Point point)
         {
             int x = (int)point.X;
@@ -233,6 +233,7 @@ namespace LianLianKan
             image.Source = null;
             gamePanelBlockMatrix[x, y] = image;
         }
+        // update block image to tapped
         private void updateImageToTapped(Image image, Point point)
         {
             int x = (int)point.X;
@@ -244,6 +245,7 @@ namespace LianLianKan
             gameCanvas.Children.Add(image);
             gamePanelBlockMatrix[x, y] = image;
         }
+        // update block image to normal
         private void updateImageToNormal(Point point)
         { 
             int x = (int)point.X;
@@ -256,6 +258,13 @@ namespace LianLianKan
             gamePanelBlockMatrix[x, y] = image;
             gameCanvas.Children.Add(image);
         }
+        // clear tapped two point
+        private void clearTappedTwoPoint()
+        {
+            firstPoint = generateEmptyPoint();
+            secondPoint = generateEmptyPoint();
+        }
+        // update game remain block amount
         private void updateGameRemainBlockAmount()
         {
             int remainAmount = game.getRemainBlockAmount();
@@ -473,6 +482,13 @@ namespace LianLianKan
             }
         }
 
+        // generate empty point
+        private Point generateEmptyPoint()
+        {
+            Point point = new Point(-1, -1);
+            return point;
+        }
+
         // check whether two points is the same
         private Boolean isTwoPointEqual(Point point1, Point point2)
         {
@@ -503,6 +519,7 @@ namespace LianLianKan
             game.doGameInfoReset();
             addGamePanelBlockTappedEvent();
             updateGamePanelBlocks();
+            clearTappedTwoPoint();
             updateGameRemainBlockAmount();
             resetTimeSliderTimer();
             btn_refresh.Visibility = System.Windows.Visibility.Visible;
@@ -512,9 +529,9 @@ namespace LianLianKan
 
         private void resetTimeSliderTimer()
         {
-            timeSliderTimer = new DispatcherTimer();
-            timeSliderTimer.Interval = TimeSpan.FromSeconds(1);
-            timeSliderTimer.Tick += timeSliderTimer_Tick;
+            //timeSliderTimer = new DispatcherTimer();
+            //timeSliderTimer.Interval = TimeSpan.FromSeconds(1);
+            //timeSliderTimer.Tick += timeSliderTimer_Tick;
             timeSliderTimer.Start();
 
             updateGameTime();
