@@ -552,6 +552,31 @@ namespace LianLianKan
         {
             remainTime -= 1;
         }
+
+        // do finish block pair update
+        public void doFinishBlockPairUpdate(Point point1, Point point2)
+        {
+            finishBlockAmount += 2;
+            int x1 = (int)point1.X;
+            int y1 = (int)point1.Y;
+            int x2 = (int)point2.X;
+            int y2 = (int)point2.Y;
+            gameZoneMatrix[x1, y1] = 0;
+            gameZoneMatrix[x2, y2] = 0;
+        }
+
+        // restart game, do some reset work
+        public void doGameInfoReset()
+        {
+            resetGameZoneMatrix();
+        }
+
+        private void resetGameZoneMatrix()
+        {
+            clearGameZoneMatrix();
+            randomArrangeValuePairInGameZoneMatrix();
+            randomExchangeValuePointInGameZoneMatrix();
+        }
         // game business service functions ending //
         //*******************************************************************//
 

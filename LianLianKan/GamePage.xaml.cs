@@ -141,16 +141,23 @@ namespace LianLianKan
             {
                 secondPoint = new Point(x, y);
                 updateImageToTapped(image, secondPoint);
-                List<Point> pointList = game.findPathBetweenPoints(firstPoint, secondPoint);
-                textBox1.Text = "";
-                foreach (Point point in pointList)
+                if (isTwoPointEqual(firstPoint, secondPoint))
                 {
-                    textBox1.Text +="(" + point.X + "," + point.Y + "); ";
+                    doPathNotFoundUpdate();
                 }
-                updateImageToNormal(firstPoint);
-                updateImageToNormal(secondPoint);
-                firstPoint = new Point(-1, -1);
-                secondPoint = new Point(-1, -1);
+                else
+                {
+                    List<Point> pointList = game.findPathBetweenPoints(firstPoint, secondPoint);
+                    if (pointList.Count > 0)
+                    {
+                        doPathFoundUpdate(firstPoint, secondPoint, pointList);
+                    }
+                    else
+                    {
+                        doPathNotFoundUpdate();
+                    }
+                }
+                
             }
             //else // clear tapped image before finishing find path function
             //{
@@ -159,6 +166,30 @@ namespace LianLianKan
             //    firstPoint = new Point(-1, -1);
             //    secondPoint = new Point(-1, -1);
             //}
+        }
+        // do path found update
+        private void doPathFoundUpdate(Point startPoint, Point endPoint, List<Point> pointList)
+        {
+            game.doFinishBlockPairUpdate(startPoint, endPoint);
+            removeGamePanelBlockImage(startPoint);
+            removeGamePanelBlockImage(endPoint);
+            firstPoint = new Point(-1, -1);
+            secondPoint = new Point(-1, -1);
+        }
+        // do path not found update
+        private void doPathNotFoundUpdate()
+        {
+            updateImageToNormal(firstPoint);
+            updateImageToNormal(secondPoint);
+            firstPoint = new Point(-1, -1);
+            secondPoint = new Point(-1, -1);
+        }
+        private void removeGamePanelBlockImage(Point point)
+        {
+            int x = (int)point.X;
+            int y = (int)point.Y;
+            Image image = gamePanelBlockMatrix[x, y];
+            gameCanvas.Children.Remove(image);
         }
         private void updateImageToTapped(Image image, Point point)
         {
@@ -280,6 +311,19 @@ namespace LianLianKan
             }
         }
 
+        // check whether two points is the same
+        private Boolean isTwoPointEqual(Point point1, Point point2)
+        {
+            if (point1.X == point2.X && point1.Y == point2.Y)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         // update game panel block
         private void updateGamePanelBlocks()
         {
@@ -322,6 +366,12 @@ namespace LianLianKan
         private void btn_refresh_Click(object sender, RoutedEventArgs e)
         {
             game.refreshGameZoneMatrix();
+            updateGamePanelBlocks();
+        }
+
+        private void btnRestart_Click(object sender, RoutedEventArgs e)
+        {
+            game.doGameInfoReset();
             updateGamePanelBlocks();
         }
         //*******************************************************************//
