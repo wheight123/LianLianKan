@@ -61,6 +61,9 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GamePage.xaml.cs">
+      <DependentUpon>GamePage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -71,6 +74,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </ApplicationDefinition>
+    <Page Include="GamePage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -87,8 +94,30 @@
     <Content Include="Background.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Resource Include="images\gamePage\bgBlocks\bgBlock.png" />
+    <Resource Include="images\gamePage\blocks\num10_1.png" />
+    <Resource Include="images\gamePage\blocks\num10_2.png" />
+    <Resource Include="images\gamePage\blocks\num1_1.png" />
+    <Resource Include="images\gamePage\blocks\num1_2.png" />
+    <Resource Include="images\gamePage\blocks\num2_1.png" />
+    <Resource Include="images\gamePage\blocks\num2_2.png" />
+    <Resource Include="images\gamePage\blocks\num3_1.png" />
+    <Resource Include="images\gamePage\blocks\num3_2.png" />
+    <Resource Include="images\gamePage\blocks\num4_1.png" />
+    <Resource Include="images\gamePage\blocks\num4_2.png" />
+    <Resource Include="images\gamePage\blocks\num5_1.png" />
+    <Resource Include="images\gamePage\blocks\num5_2.png" />
+    <Resource Include="images\gamePage\blocks\num6_1.png" />
+    <Resource Include="images\gamePage\blocks\num6_2.png" />
+    <Resource Include="images\gamePage\blocks\num7_1.png" />
+    <Resource Include="images\gamePage\blocks\num7_2.png" />
+    <Resource Include="images\gamePage\blocks\num8_1.png" />
+    <Resource Include="images\gamePage\blocks\num8_2.png" />
+    <Resource Include="images\gamePage\blocks\num9_1.png" />
+    <Resource Include="images\gamePage\blocks\num9_2.png" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
