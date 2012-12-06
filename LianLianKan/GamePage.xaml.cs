@@ -230,6 +230,8 @@ namespace LianLianKan
             int y = (int)point.Y;
             Image image = gamePanelBlockMatrix[x, y];
             gameCanvas.Children.Remove(image);
+            image.Source = null;
+            gamePanelBlockMatrix[x, y] = image;
         }
         private void updateImageToTapped(Image image, Point point)
         {
@@ -290,6 +292,7 @@ namespace LianLianKan
             if (game.isGameOver())
             {
                 timeSliderTimer.Stop();
+                clearGamePanelBlockTappedEvent();
                 btn_refresh.Visibility = System.Windows.Visibility.Collapsed;
                 btn_restart.Visibility = System.Windows.Visibility.Visible;
                 tbRemind.Visibility = System.Windows.Visibility.Visible;
@@ -300,6 +303,38 @@ namespace LianLianKan
                 if (game.isLost())
                 {
                     tbRemind.Text = "失败！";
+                }
+            }
+        }
+
+        private void clearGamePanelBlockTappedEvent()
+        {
+            for (int i = 0; i < ROW_AMOUNT; i++)
+            {
+                for (int j = 0; j < COLUM_AMOUNT; j++)
+                {
+                    Image image = gamePanelBlockMatrix[i, j];
+                    gameCanvas.Children.Remove(image);
+                    image.Tap -= blockTapped;
+                    
+                    gameCanvas.Children.Add(image);
+                    gamePanelBlockMatrix[i, j] = image;
+                }
+            }
+        }
+
+        private void addGamePanelBlockTappedEvent()
+        {
+            for (int i = 0; i < ROW_AMOUNT; i++)
+            {
+                for (int j = 0; j < COLUM_AMOUNT; j++)
+                {
+                    Image image = gamePanelBlockMatrix[i, j];
+                    gameCanvas.Children.Remove(image);
+                    image.Tap += blockTapped;
+
+                    gameCanvas.Children.Add(image);
+                    gamePanelBlockMatrix[i, j] = image;
                 }
             }
         }
@@ -466,6 +501,7 @@ namespace LianLianKan
         private void btnRestart_Click(object sender, RoutedEventArgs e)
         {
             game.doGameInfoReset();
+            addGamePanelBlockTappedEvent();
             updateGamePanelBlocks();
             updateGameRemainBlockAmount();
             resetTimeSliderTimer();

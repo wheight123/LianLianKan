@@ -556,7 +556,7 @@ namespace LianLianKan
         // decrease remain time
         public void decreaseRemainTime()
         {
-            remainTime -= 1;
+            remainTime -= 10;
         }
 
         // do finish block pair update
