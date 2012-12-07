@@ -130,6 +130,8 @@
     <Resource Include="images\gamePage\number\num9.png" />
     <Resource Include="images\gamePage\path_point.png" />
     <Resource Include="images\background\background.png" />
+    <Resource Include="images\gamePage\refresh.png" />
+    <Resource Include="images\gamePage\restart.png" />
     <Content Include="SplashScreenImage.jpg" />
     <Content Include="SplashScreenImage1.jpg" />
   </ItemGroup>
