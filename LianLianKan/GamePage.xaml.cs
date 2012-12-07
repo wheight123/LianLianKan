@@ -38,7 +38,7 @@ namespace LianLianKan
         private DispatcherTimer showPathTimer;
         private Point foundPoint1;
         private Point foundPoint2;
-        private Point resultPointList;
+        private List<Point> foundPointList;
 
         public GamePage()
         {
@@ -143,6 +143,7 @@ namespace LianLianKan
         // initialize game remain time
         private void initGameRemainTime()
         {
+            // initialize timeSlide
             int x = gamePanelStartPointX + 5;
             int y = gamePanelStartPointY - 75;
             Thickness thickness = new Thickness(x, y, 0, 0);
@@ -150,6 +151,7 @@ namespace LianLianKan
             timeSlider.Maximum = game.getRemainTime();
             timeSlider.Value = game.getRemainTime();
 
+            // initialize timeSliderTimer
             timeSliderTimer = new DispatcherTimer();
             timeSliderTimer.Interval = TimeSpan.FromSeconds(1);
             timeSliderTimer.Tick += timeSliderTimer_Tick;
@@ -159,8 +161,19 @@ namespace LianLianKan
         // initialize game page auxiliary properties
         private void initGamePageAuxiliaryProperties()
         {
+            // initialize tapped two points
             firstPoint = generateEmptyPoint();
             secondPoint = generateEmptyPoint();
+
+            // initialzie found point and point list
+            foundPoint1 = generateEmptyPoint();
+            foundPoint2 = generateEmptyPoint();
+            foundPointList = new List<Point>();
+
+            showPathTimer = new DispatcherTimer();
+            showPathTimer.Interval = TimeSpan.FromSeconds(0.3);
+            showPathTimer.Tick += showPathTimer_Tick;
+
         }
 
         // game page initialize functions ending //
@@ -210,11 +223,45 @@ namespace LianLianKan
         // do path found update
         private void doPathFoundUpdate(Point startPoint, Point endPoint, List<Point> pointList)
         {
+            // do game finish block pair update
             game.doFinishBlockPairUpdate(startPoint, endPoint);
-            removeGamePanelBlockImage(startPoint);
-            removeGamePanelBlockImage(endPoint);
+            
+            // clear user tapped two points
             clearTappedTwoPoint();
+
+            // set found point and point list for show path, erase path and found points
+            foundPoint1 = startPoint;
+            foundPoint2 = endPoint;
+            foundPointList = pointList;
+
+            // show path and start showPathTimer
+            showConnectPath(pointList);
+            showPathTimer.Start();
+        }
+        private void showPathTimer_Tick(object sender, object e)
+        {
+            // update game remain block amount
             updateGameRemainBlockAmount();
+
+            // erase connect path
+            eraseConnectPath(foundPointList);
+
+            // remove user tapped two points from game panel
+            removeGamePanelBlockImage(foundPoint1);
+            removeGamePanelBlockImage(foundPoint2);
+
+            // stop showPathTimer
+            showPathTimer.Stop();
+        }
+        // show connect path
+        private void showConnectPath(List<Point> pointList)
+        {
+ 
+        }
+        // erase connect path
+        private void eraseConnectPath(List<Point> pointList)
+        {
+ 
         }
         // do path not found update
         private void doPathNotFoundUpdate()
@@ -291,11 +338,13 @@ namespace LianLianKan
             checkGameStatus();
         }
 
+        // update game time
         private void updateGameTime()
         {
             timeSlider.Value = game.getRemainTime();
         }
 
+        // check game status
         private void checkGameStatus()
         {
             if (game.isGameOver())
@@ -316,6 +365,7 @@ namespace LianLianKan
             }
         }
 
+        // clear game panel block tapped event
         private void clearGamePanelBlockTappedEvent()
         {
             for (int i = 0; i < ROW_AMOUNT; i++)
@@ -332,6 +382,7 @@ namespace LianLianKan
             }
         }
 
+        // add game panel block tapped event
         private void addGamePanelBlockTappedEvent()
         {
             for (int i = 0; i < ROW_AMOUNT; i++)
