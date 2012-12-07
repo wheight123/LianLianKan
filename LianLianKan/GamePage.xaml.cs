@@ -35,10 +35,16 @@ namespace LianLianKan
         private Point firstPoint;
         private Point secondPoint;
 
+        // user found block pair auxiliary properties
         private DispatcherTimer showPathTimer;
         private Point foundPoint1;
         private Point foundPoint2;
         private List<Point> foundPointList;
+
+        // remind tool auxiliary properties
+        private DispatcherTimer remindTimer;
+        private Point remindPoint1;
+        private Point remindPoint2;
 
         public GamePage()
         {
@@ -184,15 +190,24 @@ namespace LianLianKan
             firstPoint = generateEmptyPoint();
             secondPoint = generateEmptyPoint();
 
-            // initialzie found point and point list
+            // initialize found point and point list
             foundPoint1 = generateEmptyPoint();
             foundPoint2 = generateEmptyPoint();
             foundPointList = new List<Point>();
 
+            // initialize show found path timer
             showPathTimer = new DispatcherTimer();
             showPathTimer.Interval = TimeSpan.FromSeconds(0.2);
             showPathTimer.Tick += showPathTimer_Tick;
 
+            // initialize remind timer
+            remindTimer = new DispatcherTimer();
+            remindTimer.Interval = TimeSpan.FromSeconds(0.5);
+            remindTimer.Tick += remindTimer_Tick;
+
+            // initialize remind points
+            remindPoint1 = generateEmptyPoint();
+            remindPoint2 = generateEmptyPoint();
         }
 
         // game page initialize functions ending //
@@ -242,6 +257,8 @@ namespace LianLianKan
         // do path found update
         private void doPathFoundUpdate(Point startPoint, Point endPoint, List<Point> pointList)
         {
+            do
+            {}while((!isEmptyPoint(foundPoint1)) && (!isEmptyPoint(foundPoint2)));
             // do game finish block pair update
             game.doFinishBlockPairUpdate(startPoint, endPoint);
             
@@ -268,6 +285,10 @@ namespace LianLianKan
             // remove user tapped two points from game panel
             removeGamePanelBlockImage(foundPoint1);
             removeGamePanelBlockImage(foundPoint2);
+
+            // clear found two points
+            foundPoint1 = generateEmptyPoint();
+            foundPoint2 = generateEmptyPoint();
 
             // stop showPathTimer
             showPathTimer.Stop();
@@ -715,13 +736,105 @@ namespace LianLianKan
         // bomb image tap event response function
         private void imgBomb_Tap(object sender, GestureEventArgs e)
         {
-
+            
+            List<Point> path = game.findPathOfRandomBlockPair();
+            Point point1 = path[0];
+            Point point2 = new Point();
+            int length = path.Count;
+            switch (length)
+            {
+                case 2:
+                    point2 = path[1];
+                    break;
+                case 3:
+                    point2 = path[2];
+                    break;
+                case 4:
+                    point2 = path[3];
+                    break;
+            }
+            doPathFoundUpdate(point1, point2, path);
         }
 
         // finder image tap event response function
         private void imgFinder_Tap(object sender, GestureEventArgs e)
         {
+            if (isEmptyPoint(remindPoint1) && isEmptyPoint(remindPoint2))
+            {
+                List<Point> path = game.findPathOfRandomBlockPair();
+                Point point1 = path[0];
+                Point point2 = new Point();
+                int length = path.Count;
+                switch (length)
+                {
+                    case 2:
+                        point2 = path[1];
+                        break;
+                    case 3:
+                        point2 = path[2];
+                        break;
+                    case 4:
+                        point2 = path[3];
+                        break;
+                }
+                // show remind points
+                showRemindPoints(point1, point2);
+            }
+        }
+        // show remind points
+        private void showRemindPoints(Point point1, Point point2)
+        {
+            // show two points
+            showRemindPoint(point1);
+            showRemindPoint(point2);
+            // start remind timer
+            remindTimer.Start();
+            // set two remind points
+            remindPoint1 = point1;
+            remindPoint2 = point2;
+        }
+        // show remind point
+        private void showRemindPoint(Point point)
+        {
+            int x = (int)point.X;
+            int y = (int)point.Y;
+            Image image = gamePanelBlockMatrix[x, y];
+            gameCanvas.Children.Remove(image);
 
+            int type = game.getGameZoneMatrix()[x, y];
+            setGamePanelBlockImageSourceTapped(image, type);
+            gameCanvas.Children.Add(image);
+            gamePanelBlockMatrix[x, y] = image;
+        }
+        // remindTimer tick callback function
+        private void remindTimer_Tick(object sender, object e)
+        {
+            // hide remind two points
+            hideRemindPoints(remindPoint1, remindPoint2);
+            // clear remind two points
+            remindPoint1 = generateEmptyPoint();
+            remindPoint2 = generateEmptyPoint();
+            // stop remind timer
+            remindTimer.Stop();
+        }
+        // hide remind points
+        private void hideRemindPoints(Point point1, Point point2)
+        {
+            hideRemindPoint(point1);
+            hideRemindPoint(point2);
+        }
+        // hide remind point
+        private void hideRemindPoint(Point point)
+        {
+            int x = (int)point.X;
+            int y = (int)point.Y;
+            Image image = gamePanelBlockMatrix[x, y];
+            gameCanvas.Children.Remove(image);
+
+            int type = game.getGameZoneMatrix()[x, y];
+            setGamePanelBlockImageSourceNormal(image, type);
+            gameCanvas.Children.Add(image);
+            gamePanelBlockMatrix[x, y] = image;
         }
 
         // restart button click resposne function

@@ -553,6 +553,67 @@ namespace LianLianKan
             randomExchangeValuePointInGameZoneMatrix();
         }
 
+        // find the path of random block pair
+        public List<Point> findPathOfRandomBlockPair()
+        {
+            Random random = new Random();
+            List<Point> resultPointList = new List<Point>();
+            do
+            {
+                List<Point> tempPointList = new List<Point>();
+                do
+                {
+                    int type = random.Next() % blockType + 1;
+                    tempPointList = getPointListOfCertainType(type);
+                } while (tempPointList.Count == 0);
+                resultPointList = getPointPathInPointList(tempPointList);
+            } while (resultPointList.Count == 0);
+            return resultPointList;
+        }
+        // get point list of certain type
+        private List<Point> getPointListOfCertainType(int type)
+        {
+            List<Point> pointList = new List<Point>();
+            for (int i = 1; i < rowAmount - 1; i++)
+            {
+                for (int j = 1; j < columAmount - 1; j++)
+                {
+                    if (gameZoneMatrix[i, j] == type)
+                    {
+                        Point point = new Point(i, j);
+                        pointList.Add(point);
+                    }
+                }
+            }
+            return pointList;
+        }
+        // get point path which can connect two block in given point list
+        private List<Point> getPointPathInPointList(List<Point> pointList)
+        {
+            List<Point> tempPointList = pointList;
+            List<Point> pointPath = new List<Point>();
+            Boolean flag = false;
+            while (tempPointList.Count >= 2)
+            {
+                Point point = tempPointList[0];
+                tempPointList.Remove(point);
+                foreach (Point tempPoint in tempPointList)
+                {
+                    pointPath = findPathBetweenPoints(point, tempPoint);
+                    if (pointPath.Count >= 2)
+                    {
+                        flag = true;
+                        break;
+                    }
+                }
+                if (flag)
+                {
+                    break;
+                }
+            }
+            return pointPath;
+        }
+
         // decrease remain time
         public void decreaseRemainTime()
         {
@@ -585,6 +646,7 @@ namespace LianLianKan
             initUserGameInfo();
         }
 
+        // check whether game is over
         public Boolean isGameOver()
         {
             if (remainTime <= 0 || finishBlockAmount >= blockAmount)
@@ -596,6 +658,8 @@ namespace LianLianKan
                 return false;
             }
         }
+
+        // check whether win the game
         public Boolean isWin()
         {
             if (finishBlockAmount >= blockAmount)
@@ -607,6 +671,8 @@ namespace LianLianKan
                 return false;
             }
         }
+
+        // check whther lost the game
         public Boolean isLost()
         {
             if (remainTime <= 0)
@@ -618,6 +684,7 @@ namespace LianLianKan
                 return false;
             }
         }
+
         // game business service functions ending //
         //*******************************************************************//
 
