@@ -302,8 +302,10 @@ namespace LianLianKan
             {
                 timeSliderTimer.Stop();
                 clearGamePanelBlockTappedEvent();
-                btn_refresh.Visibility = System.Windows.Visibility.Collapsed;
-                btn_restart.Visibility = System.Windows.Visibility.Visible;
+               //btn_refresh.Visibility = System.Windows.Visibility.Collapsed;
+               //btn_restart.Visibility = System.Windows.Visibility.Visible;
+                imgRestart.Visibility = System.Windows.Visibility.Visible;
+                imgRefresh.Visibility = System.Windows.Visibility.Collapsed;
                 tbRemind.Visibility = System.Windows.Visibility.Visible;
                 if (game.isWin())
                 {
@@ -522,9 +524,9 @@ namespace LianLianKan
             clearTappedTwoPoint();
             updateGameRemainBlockAmount();
             resetTimeSliderTimer();
-            btn_refresh.Visibility = System.Windows.Visibility.Visible;
-            btn_restart.Visibility = System.Windows.Visibility.Collapsed;
-            tbRemind.Visibility = System.Windows.Visibility.Collapsed;
+            //btn_refresh.Visibility = System.Windows.Visibility.Visible;
+            //btn_restart.Visibility = System.Windows.Visibility.Collapsed;
+            //tbRemind.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         private void resetTimeSliderTimer()
@@ -569,6 +571,28 @@ namespace LianLianKan
                     }
                 }
             }
+        }
+
+        private void imgRefresh_Tap(object sender, GestureEventArgs e)
+        {
+            game.refreshGameZoneMatrix();
+            updateGamePanelBlocks();
+        }
+
+        private void imgRestart_Tap(object sender, GestureEventArgs e)
+        {
+            game.doGameInfoReset();
+            addGamePanelBlockTappedEvent();
+            updateGamePanelBlocks();
+            clearTappedTwoPoint();
+            updateGameRemainBlockAmount();
+            resetTimeSliderTimer();
+
+            //btn_refresh.Visibility = System.Windows.Visibility.Visible;
+            //btn_restart.Visibility = System.Windows.Visibility.Collapsed;
+            imgRestart.Visibility = System.Windows.Visibility.Collapsed;
+            imgRefresh.Visibility = System.Windows.Visibility.Visible;
+            tbRemind.Visibility = System.Windows.Visibility.Collapsed;
         }
 
         //*******************************************************************//
