@@ -14,7 +14,10 @@
     shell:SystemTray.IsVisible="False">
 
     <!--LayoutRoot 是包含所有页面内容的根网格-->
-    <Grid x:Name="LayoutRoot" Background="Wheat">
+    <Grid x:Name="LayoutRoot">
+        <Grid.Background>
+            <ImageBrush ImageSource="images/background/background.png"/>
+        </Grid.Background>
         <Canvas x:Name="gameCanvas">
             <!-- image resource -->
             <Image Name="point" Canvas.Left="6" Canvas.Top="6" Height="50" Width="50" 

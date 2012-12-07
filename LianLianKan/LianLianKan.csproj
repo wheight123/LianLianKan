@@ -127,7 +127,9 @@
     <Resource Include="images\gamePage\number\num8.png" />
     <Resource Include="images\gamePage\number\num9.png" />
     <Resource Include="images\gamePage\path_point.png" />
+    <Resource Include="images\background\background.png" />
     <Content Include="SplashScreenImage.jpg" />
+    <Content Include="SplashScreenImage1.jpg" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />

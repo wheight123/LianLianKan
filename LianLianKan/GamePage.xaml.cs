@@ -35,10 +35,10 @@ namespace LianLianKan
         private Point firstPoint;
         private Point secondPoint;
 
-        private DispatcherTimer showPathTimer;
-        private Point foundPoint1;
-        private Point foundPoint2;
-        private Point resultPointList;
+        //private DispatcherTimer showPathTimer;
+        //private Point foundPoint1;
+        //private Point foundPoint2;
+        //private Point resultPointList;
 
         public GamePage()
         {
