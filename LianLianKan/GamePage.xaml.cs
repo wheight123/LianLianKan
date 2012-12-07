@@ -55,6 +55,8 @@ namespace LianLianKan
             initGameRemainBlockAmount();
             // initialize game remain time
             initGameRemainTime();
+            // initialize game tools
+            initGameTools();
             // initialize game page auxiliary properties
             initGamePageAuxiliaryProperties();
         }
@@ -158,6 +160,23 @@ namespace LianLianKan
             timeSliderTimer.Start();
         }
 
+        // initialize game tools
+        private void initGameTools()
+        {
+            int interval = 100;
+            int startX = gamePanelStartPointX + BLOCK_WIDTH * 1;
+            int y = gamePanelStartPointY + BLOCK_HEIGHT * ROW_AMOUNT - 10;
+            int x1 = startX;
+            Thickness imgRefreshThickness = new Thickness(x1 , y, 0, 0);
+            int x2 = startX + interval + 5;
+            Thickness imgBombThickness = new Thickness(x2, y, 0, 0);
+            int x3 = startX + interval * 2;
+            Thickness imgFinderThickness = new Thickness(x3, y, 0, 0);
+            imgRefresh.Margin = imgRefreshThickness;
+            imgBomb.Margin = imgBombThickness;
+            imgFinder.Margin = imgFinderThickness;
+        }
+
         // initialize game page auxiliary properties
         private void initGamePageAuxiliaryProperties()
         {
@@ -171,7 +190,7 @@ namespace LianLianKan
             foundPointList = new List<Point>();
 
             showPathTimer = new DispatcherTimer();
-            showPathTimer.Interval = TimeSpan.FromSeconds(0.3);
+            showPathTimer.Interval = TimeSpan.FromSeconds(0.2);
             showPathTimer.Tick += showPathTimer_Tick;
 
         }
@@ -475,7 +494,9 @@ namespace LianLianKan
             {
                 timeSliderTimer.Stop();
                 clearGamePanelBlockTappedEvent();
-                btn_refresh.Visibility = System.Windows.Visibility.Collapsed;
+                imgRefresh.Visibility = System.Windows.Visibility.Collapsed;
+                imgBomb.Visibility = System.Windows.Visibility.Collapsed;
+                imgFinder.Visibility = System.Windows.Visibility.Collapsed;
                 btn_restart.Visibility = System.Windows.Visibility.Visible;
                 tbRemind.Visibility = System.Windows.Visibility.Visible;
                 if (game.isWin())
@@ -682,12 +703,25 @@ namespace LianLianKan
 
 
         //*******************************************************************//
+        // normal user controls event response functions beginning //
 
-        // refresh button click resposne function
-        private void btn_refresh_Click(object sender, RoutedEventArgs e)
+        // refresh image tap event response function
+        private void imgRefresh_Tap(object sender, GestureEventArgs e)
         {
             game.refreshGameZoneMatrix();
             updateGamePanelBlocks();
+        }
+
+        // bomb image tap event response function
+        private void imgBomb_Tap(object sender, GestureEventArgs e)
+        {
+
+        }
+
+        // finder image tap event response function
+        private void imgFinder_Tap(object sender, GestureEventArgs e)
+        {
+
         }
 
         // restart button click resposne function
@@ -699,10 +733,17 @@ namespace LianLianKan
             clearTappedTwoPoint();
             updateGameRemainBlockAmount();
             resetTimeSliderTimer();
-            btn_refresh.Visibility = System.Windows.Visibility.Visible;
+
+            imgRefresh.Visibility = System.Windows.Visibility.Visible;
+            imgBomb.Visibility = System.Windows.Visibility.Visible;
+            imgFinder.Visibility = System.Windows.Visibility.Visible;
             btn_restart.Visibility = System.Windows.Visibility.Collapsed;
             tbRemind.Visibility = System.Windows.Visibility.Collapsed;
         }
+
+        // normal user controls event response functions ending //
+        //*******************************************************************//
+
 
         // reset timeSliderTimer
         private void resetTimeSliderTimer()
