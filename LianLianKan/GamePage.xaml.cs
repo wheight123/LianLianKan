@@ -256,12 +256,136 @@ namespace LianLianKan
         // show connect path
         private void showConnectPath(List<Point> pointList)
         {
- 
+            for(int i = 0; i < pointList.Count - 1; i++)
+            {
+                Point point1 = pointList[i];
+                Point point2 = pointList[i + 1];
+                drawPathBetweenTwoPoint(point1, point2);
+            }
+        }
+        private void drawPathBetweenTwoPoint(Point point1, Point point2)
+        {
+            int x1 = (int)point1.X;
+            int y1 = (int)point1.Y;
+            int x2 = (int)point2.X;
+            int y2 = (int)point2.Y;
+            if (x1 == x2)
+            {
+                int x = x1;
+                int startY;
+                int endY;
+                if (y1 > y2)
+                {
+                    startY = y2;
+                    endY = y1;
+                }
+                else
+                {
+                    startY = y1;
+                    endY = y2;
+                }
+                for (int i = startY; i <= endY; i++)
+                {
+                    Image image = gamePanelBackgroudMatrix[x, i];
+                    gameCanvas.Children.Remove(image);
+
+                    image.Source = point.Source;
+                    gameCanvas.Children.Add(image);
+                    gamePanelBackgroudMatrix[x, i] = image;
+                }
+            }
+            else
+            {
+                int y = y1;
+                int startX;
+                int endX;
+                if (x1 > x2)
+                {
+                    startX = x2;
+                    endX = x1;
+                }
+                else
+                {
+                    startX = x1;
+                    endX = x2;
+                }
+                for (int i = startX; i <= endX; i++)
+                {
+                    Image image = gamePanelBackgroudMatrix[i, y];
+                    gameCanvas.Children.Remove(image);
+
+                    image.Source = point.Source;
+                    gameCanvas.Children.Add(image);
+                    gamePanelBackgroudMatrix[i, y] = image;
+                }
+            }
         }
         // erase connect path
         private void eraseConnectPath(List<Point> pointList)
         {
- 
+            for (int i = 0; i < pointList.Count - 1; i++)
+            {
+                Point point1 = pointList[i];
+                Point point2 = pointList[i + 1];
+                erasePathBetweenTwoPoint(point1, point2);
+            }
+        }
+        private void erasePathBetweenTwoPoint(Point point1, Point point2)
+        {
+            int x1 = (int)point1.X;
+            int y1 = (int)point1.Y;
+            int x2 = (int)point2.X;
+            int y2 = (int)point2.Y;
+            if (x1 == x2)
+            {
+                int x = x1;
+                int startY;
+                int endY;
+                if (y1 > y2)
+                {
+                    startY = y2;
+                    endY = y1;
+                }
+                else
+                {
+                    startY = y1;
+                    endY = y2;
+                }
+                for (int i = startY; i <= endY; i++)
+                {
+                    Image image = gamePanelBackgroudMatrix[x, i];
+                    gameCanvas.Children.Remove(image);
+
+                    image.Source = bgBlock.Source;
+                    gameCanvas.Children.Add(image);
+                    gamePanelBackgroudMatrix[x, i] = image;
+                }
+            }
+            else
+            {
+                int y = y1;
+                int startX;
+                int endX;
+                if (x1 > x2)
+                {
+                    startX = x2;
+                    endX = x1;
+                }
+                else
+                {
+                    startX = x1;
+                    endX = x2;
+                }
+                for (int i = startX; i <= endX; i++)
+                {
+                    Image image = gamePanelBackgroudMatrix[i, y];
+                    gameCanvas.Children.Remove(image);
+
+                    image.Source = bgBlock.Source;
+                    gameCanvas.Children.Add(image);
+                    gamePanelBackgroudMatrix[i, y] = image;
+                }
+            }
         }
         // do path not found update
         private void doPathNotFoundUpdate()
@@ -559,12 +683,14 @@ namespace LianLianKan
 
         //*******************************************************************//
 
+        // refresh button click resposne function
         private void btn_refresh_Click(object sender, RoutedEventArgs e)
         {
             game.refreshGameZoneMatrix();
             updateGamePanelBlocks();
         }
 
+        // restart button click resposne function
         private void btnRestart_Click(object sender, RoutedEventArgs e)
         {
             game.doGameInfoReset();
@@ -578,13 +704,12 @@ namespace LianLianKan
             tbRemind.Visibility = System.Windows.Visibility.Collapsed;
         }
 
+        // reset timeSliderTimer
         private void resetTimeSliderTimer()
         {
-            //timeSliderTimer = new DispatcherTimer();
-            //timeSliderTimer.Interval = TimeSpan.FromSeconds(1);
-            //timeSliderTimer.Tick += timeSliderTimer_Tick;
+            // start timeSliderTimer
             timeSliderTimer.Start();
-
+            // update game time
             updateGameTime();
         }
 
