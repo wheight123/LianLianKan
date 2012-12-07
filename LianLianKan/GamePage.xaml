@@ -93,7 +93,6 @@
                    Source="/LianLianKan;component/images/gamePage/bomb.png" Tap="imgBomb_Tap"/>
             <Image Name="imgFinder" Height="64" Width="64" Stretch="Fill" 
                    Source="/LianLianKan;component/images/gamePage/finder.png" Tap="imgFinder_Tap"/>
-            <TextBlock Canvas.Left="70" Canvas.Top="6" Height="39" Name="textBlock1" Text="TextBlock" Width="334" />
         </Canvas>
     </Grid>
  

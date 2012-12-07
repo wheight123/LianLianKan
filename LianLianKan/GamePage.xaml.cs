@@ -197,12 +197,12 @@ namespace LianLianKan
 
             // initialize show found path timer
             showPathTimer = new DispatcherTimer();
-            showPathTimer.Interval = TimeSpan.FromSeconds(0.2);
+            showPathTimer.Interval = TimeSpan.FromSeconds(0.3);
             showPathTimer.Tick += showPathTimer_Tick;
 
             // initialize remind timer
             remindTimer = new DispatcherTimer();
-            remindTimer.Interval = TimeSpan.FromSeconds(0.5);
+            remindTimer.Interval = TimeSpan.FromSeconds(0.4);
             remindTimer.Tick += remindTimer_Tick;
 
             // initialize remind points
@@ -236,22 +236,27 @@ namespace LianLianKan
                 updateImageToTapped(image, secondPoint);
                 if (isTwoPointEqual(firstPoint, secondPoint))
                 {
+                    // do path not found update
                     doPathNotFoundUpdate();
+                    // check game status
+                    checkGameStatus();
                 }
                 else
                 {
                     List<Point> pointList = game.findPathBetweenPoints(firstPoint, secondPoint);
                     if (pointList.Count > 0)
                     {
+                        // do path found update
                         doPathFoundUpdate(firstPoint, secondPoint, pointList);
                     }
                     else
                     {
+                        // do path not found update
                         doPathNotFoundUpdate();
+                        // check game status
+                        checkGameStatus();
                     }
                 }
-                // check game status
-                checkGameStatus();
             }
         }
         // do path found update
@@ -259,6 +264,7 @@ namespace LianLianKan
         {
             do
             {}while((!isEmptyPoint(foundPoint1)) && (!isEmptyPoint(foundPoint2)));
+
             // do game finish block pair update
             game.doFinishBlockPairUpdate(startPoint, endPoint);
             
@@ -292,6 +298,9 @@ namespace LianLianKan
 
             // stop showPathTimer
             showPathTimer.Stop();
+
+            // check game status
+            checkGameStatus();
         }
         // show connect path
         private void showConnectPath(List<Point> pointList)
@@ -736,24 +745,26 @@ namespace LianLianKan
         // bomb image tap event response function
         private void imgBomb_Tap(object sender, GestureEventArgs e)
         {
-            
-            List<Point> path = game.findPathOfRandomBlockPair();
-            Point point1 = path[0];
-            Point point2 = new Point();
-            int length = path.Count;
-            switch (length)
+            if (isEmptyPoint(foundPoint1) && isEmptyPoint(foundPoint2))
             {
-                case 2:
-                    point2 = path[1];
-                    break;
-                case 3:
-                    point2 = path[2];
-                    break;
-                case 4:
-                    point2 = path[3];
-                    break;
+                List<Point> path = game.findPathOfRandomBlockPair();
+                Point point1 = path[0];
+                Point point2 = new Point();
+                int length = path.Count;
+                switch (length)
+                {
+                    case 2:
+                        point2 = path[1];
+                        break;
+                    case 3:
+                        point2 = path[2];
+                        break;
+                    case 4:
+                        point2 = path[3];
+                        break;
+                }
+                doPathFoundUpdate(point1, point2, path);
             }
-            doPathFoundUpdate(point1, point2, path);
         }
 
         // finder image tap event response function
