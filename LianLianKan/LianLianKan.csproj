@@ -89,10 +89,12 @@
     <None Include="Properties\WMAppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="ApplicationIcon.png">
+    <Resource Include="ApplicationIcon.png" />
+    <Content Include="ApplicationIcon1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="Background.png">
+    <Resource Include="Background.png" />
+    <Content Include="Background1.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Resource Include="images\gamePage\bgBlocks\bgBlock.png" />
