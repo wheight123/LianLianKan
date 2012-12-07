@@ -48,7 +48,7 @@ namespace LianLianKan
             // initialize game panel start point
             initGamePanelStartPoint();
             // initialize game panel background
-            initGamePanelBackground();
+            //initGamePanelBackground();
             // initialize game panel blocks
             initGamePanelBlocks();
             // initialize game remain block amount
