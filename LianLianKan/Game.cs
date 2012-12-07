@@ -31,11 +31,17 @@ namespace LianLianKan
         private int finishBlockAmount;
         private double remainTime;
         private int score;
+        private int refreshTime;
+        private int bombTime;
+        private int remindTime;
+        private int REFRESH_TIME = 3;
+        private int BOMB_TIME = 3;
+        private int REMIDN_TIME = 3;
 
         // game constants properites
         private const int GAME_MODE_LEVEL = 1;
         private const int GAME_MODE_CHALLENGE = 2;
-        private const int GAME_LEVEL_DEFAULT = 5;
+        private const int GAME_LEVEL_DEFAULT = 12;
         private const int GAME_LEVE_MIN = 1;
         private const int GAME_LEVEL_MAX = 12;
 
@@ -131,6 +137,9 @@ namespace LianLianKan
             finishBlockAmount = 0;
             remainTime = 100;
             score = 0;
+            refreshTime = REFRESH_TIME;
+            bombTime = BOMB_TIME;
+            remindTime = REMIDN_TIME;
         }
 
         // initialize game information functions ending //
@@ -162,6 +171,24 @@ namespace LianLianKan
         public int getScore()
         {
             return score;
+        }
+
+        // get refresh time
+        public int getRefreshTime()
+        {
+            return refreshTime;
+        }
+
+        // get bomb time
+        public int getBombTime()
+        {
+            return bombTime;
+        }
+
+        // get remind time
+        public int getRemindTime()
+        {
+            return remindTime;
         }
 
         // get remain block amount
@@ -617,7 +644,34 @@ namespace LianLianKan
         // decrease remain time
         public void decreaseRemainTime()
         {
-            remainTime -= 1;
+            remainTime -= 0.2;
+        }
+
+        // decrease refresh time 
+        public void decreaseRefreshTime()
+        {
+            if (refreshTime > 0)
+            {
+                refreshTime--;
+            }
+        }
+
+        // decrease bomb time
+        public void decreaseBombTime()
+        {
+            if (bombTime > 0)
+            {
+                bombTime--;
+            }
+        }
+
+        // decrease remind time
+        public void decreaseRemindTime()
+        {
+            if (remindTime > 0)
+            {
+                remindTime--;
+            }
         }
 
         // do finish block pair update

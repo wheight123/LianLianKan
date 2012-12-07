@@ -161,7 +161,7 @@ namespace LianLianKan
 
             // initialize timeSliderTimer
             timeSliderTimer = new DispatcherTimer();
-            timeSliderTimer.Interval = TimeSpan.FromSeconds(1);
+            timeSliderTimer.Interval = TimeSpan.FromSeconds(0.2);
             timeSliderTimer.Tick += timeSliderTimer_Tick;
             timeSliderTimer.Start();
         }
@@ -169,18 +169,28 @@ namespace LianLianKan
         // initialize game tools
         private void initGameTools()
         {
-            int interval = 100;
+            int interval = 150;
             int startX = gamePanelStartPointX + BLOCK_WIDTH * 1;
             int y = gamePanelStartPointY + BLOCK_HEIGHT * ROW_AMOUNT - 10;
             int x1 = startX;
             Thickness imgRefreshThickness = new Thickness(x1 , y, 0, 0);
+            Thickness imgRefreshTimeThickness = new Thickness(x1 + 65, y + 15, 0, 0);
             int x2 = startX + interval + 5;
             Thickness imgBombThickness = new Thickness(x2, y, 0, 0);
+            Thickness imgBombTimeThickness = new Thickness(x2 + 65, y + 15, 0, 0);
             int x3 = startX + interval * 2;
             Thickness imgFinderThickness = new Thickness(x3, y, 0, 0);
+            Thickness imgFinderTimeThickness = new Thickness(x3 + 70, y + 15, 0, 0);
             imgRefresh.Margin = imgRefreshThickness;
+            imgRefreshTime.Margin = imgRefreshTimeThickness;
             imgBomb.Margin = imgBombThickness;
+            imgBombTime.Margin = imgBombTimeThickness;
             imgFinder.Margin = imgFinderThickness;
+            imgFinderTime.Margin = imgFinderTimeThickness;
+
+            updateRefreshTimeImage();
+            updateBombTimeImage();
+            updateRemindTimeImage();
         }
 
         // initialize game page auxiliary properties
@@ -525,8 +535,11 @@ namespace LianLianKan
                 timeSliderTimer.Stop();
                 clearGamePanelBlockTappedEvent();
                 imgRefresh.Visibility = System.Windows.Visibility.Collapsed;
+                imgRefreshTime.Visibility = System.Windows.Visibility.Collapsed;
                 imgBomb.Visibility = System.Windows.Visibility.Collapsed;
+                imgBombTime.Visibility = System.Windows.Visibility.Collapsed;
                 imgFinder.Visibility = System.Windows.Visibility.Collapsed;
+                imgFinderTime.Visibility = System.Windows.Visibility.Collapsed;
                 btn_restart.Visibility = System.Windows.Visibility.Visible;
                 tbRemind.Visibility = System.Windows.Visibility.Visible;
                 if (game.isWin())
@@ -738,8 +751,22 @@ namespace LianLianKan
         // refresh image tap event response function
         private void imgRefresh_Tap(object sender, GestureEventArgs e)
         {
-            game.refreshGameZoneMatrix();
-            updateGamePanelBlocks();
+            if (game.getRefreshTime() != 0)
+            {
+                // refresh game zone matrix
+                game.refreshGameZoneMatrix();
+                // update game panel blocks
+                updateGamePanelBlocks();
+                // decrease refresh time
+                game.decreaseRefreshTime();
+                // update refresh time image
+                updateRefreshTimeImage();
+            }
+        }
+        // update refresh time image
+        private void updateRefreshTimeImage()
+        {
+            setGameNumberImageSource(imgRefreshTime, game.getRefreshTime());
         }
 
         // bomb image tap event response function
@@ -747,24 +774,37 @@ namespace LianLianKan
         {
             if (isEmptyPoint(foundPoint1) && isEmptyPoint(foundPoint2))
             {
-                List<Point> path = game.findPathOfRandomBlockPair();
-                Point point1 = path[0];
-                Point point2 = new Point();
-                int length = path.Count;
-                switch (length)
+                if (game.getBombTime() != 0)
                 {
-                    case 2:
-                        point2 = path[1];
-                        break;
-                    case 3:
-                        point2 = path[2];
-                        break;
-                    case 4:
-                        point2 = path[3];
-                        break;
+                    List<Point> path = game.findPathOfRandomBlockPair();
+                    Point point1 = path[0];
+                    Point point2 = new Point();
+                    int length = path.Count;
+                    switch (length)
+                    {
+                        case 2:
+                            point2 = path[1];
+                            break;
+                        case 3:
+                            point2 = path[2];
+                            break;
+                        case 4:
+                            point2 = path[3];
+                            break;
+                    }
+                    // do path found update
+                    doPathFoundUpdate(point1, point2, path);
+                    // decrease bomb time
+                    game.decreaseBombTime();
+                    // update bomb time image
+                    updateBombTimeImage();
                 }
-                doPathFoundUpdate(point1, point2, path);
             }
+        }
+        // update bomb time image
+        private void updateBombTimeImage()
+        {
+            setGameNumberImageSource(imgBombTime, game.getBombTime());
         }
 
         // finder image tap event response function
@@ -772,25 +812,37 @@ namespace LianLianKan
         {
             if (isEmptyPoint(remindPoint1) && isEmptyPoint(remindPoint2))
             {
-                List<Point> path = game.findPathOfRandomBlockPair();
-                Point point1 = path[0];
-                Point point2 = new Point();
-                int length = path.Count;
-                switch (length)
+                if (game.getRemindTime() != 0)
                 {
-                    case 2:
-                        point2 = path[1];
-                        break;
-                    case 3:
-                        point2 = path[2];
-                        break;
-                    case 4:
-                        point2 = path[3];
-                        break;
+                    List<Point> path = game.findPathOfRandomBlockPair();
+                    Point point1 = path[0];
+                    Point point2 = new Point();
+                    int length = path.Count;
+                    switch (length)
+                    {
+                        case 2:
+                            point2 = path[1];
+                            break;
+                        case 3:
+                            point2 = path[2];
+                            break;
+                        case 4:
+                            point2 = path[3];
+                            break;
+                    }
+                    // show remind points
+                    showRemindPoints(point1, point2);
+                    // decrease remind time
+                    game.decreaseRemindTime();
+                    // update remind time image
+                    updateRemindTimeImage();
                 }
-                // show remind points
-                showRemindPoints(point1, point2);
             }
+        }
+        // update remind time iamge
+        private void updateRemindTimeImage()
+        {
+            setGameNumberImageSource(imgFinderTime, game.getRemindTime());
         }
         // show remind points
         private void showRemindPoints(Point point1, Point point2)
@@ -851,16 +903,29 @@ namespace LianLianKan
         // restart button click resposne function
         private void btnRestart_Click(object sender, RoutedEventArgs e)
         {
+            // reset game information
             game.doGameInfoReset();
+            // add game panel block  tapped event
             addGamePanelBlockTappedEvent();
+            // update game panel blocks
             updateGamePanelBlocks();
+            // clear tapped two point
             clearTappedTwoPoint();
+            // update game remain block amount
             updateGameRemainBlockAmount();
+            // update time slider and timeSliderTimer
             resetTimeSliderTimer();
 
             imgRefresh.Visibility = System.Windows.Visibility.Visible;
+            imgRefreshTime.Visibility = System.Windows.Visibility.Visible;
             imgBomb.Visibility = System.Windows.Visibility.Visible;
+            imgBombTime.Visibility = System.Windows.Visibility.Visible;
             imgFinder.Visibility = System.Windows.Visibility.Visible;
+            imgFinderTime.Visibility = System.Windows.Visibility.Visible;
+            updateRefreshTimeImage();
+            updateBombTimeImage();
+            updateRemindTimeImage();
+
             btn_restart.Visibility = System.Windows.Visibility.Collapsed;
             tbRemind.Visibility = System.Windows.Visibility.Collapsed;
         }

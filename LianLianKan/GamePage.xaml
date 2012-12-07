@@ -87,12 +87,19 @@
             <Slider Canvas.Left="26" Canvas.Top="25" Height="83" Name="timeSlider" Width="250" Foreground="#FFEFAD1C"/>
             <TextBlock Canvas.Left="40" Canvas.Top="733" Height="48" Name="tbRemind" Width="235" FontSize="32" 
                        Visibility="Collapsed" Foreground="#FFF51919" Text="aaaa"/>
+            <!-- user tools -->
             <Image Name="imgRefresh" Height="64" Width="64" Stretch="Fill" 
                    Source="/LianLianKan;component/images/gamePage/refresh.png" Tap="imgRefresh_Tap"/>
             <Image Name="imgBomb"  Height="64" Width="64" Stretch="Fill" 
                    Source="/LianLianKan;component/images/gamePage/bomb.png" Tap="imgBomb_Tap"/>
             <Image Name="imgFinder" Height="64" Width="64" Stretch="Fill" 
                    Source="/LianLianKan;component/images/gamePage/finder.png" Tap="imgFinder_Tap"/>
+            <Image Name="imgRefreshTime" Height="30" Width="19" Stretch="Fill" 
+                   Source="/LianLianKan;component/images/gamePage/number/num0.png"/>
+            <Image Name="imgBombTime"  Height="30" Width="19" Stretch="Fill" 
+                   Source="/LianLianKan;component/images/gamePage/number/num0.png"/>
+            <Image Name="imgFinderTime" Height="30" Width="19" Stretch="Fill" 
+                   Source="/LianLianKan;component/images/gamePage/number/num0.png"/>
         </Canvas>
     </Grid>
  
